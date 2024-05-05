@@ -46,8 +46,8 @@
 
   services.tailscale.enable = true;
 
-  services.desktopManager.cosmic.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
+  # services.desktopManager.cosmic.enable = true;
+  # services.displayManager.cosmic-greeter.enable = true;
 
   programs.fish.enable = true;
 
@@ -96,13 +96,14 @@
     driSupport32Bit = true;
   };
 
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelParams = ["nvidia_drm.fbdev=1"];
   hardware.nvidia = {
     modesetting.enable = true;
     open = false;
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-    # package = config.boot.kernelPackages.nvidiaPackages.beta;
+    # package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
 
   environment.sessionVariables = {
