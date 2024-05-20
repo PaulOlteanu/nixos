@@ -1,10 +1,13 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
 {
-  imports = [ ./hardware-configuration.nix ];
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
+  imports = [./hardware-configuration.nix];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -15,11 +18,13 @@
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
+  systemd.services.NetworkManager-wait-online.enable = lib.mkForce false;
+  systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes"];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.settings.auto-optimise-store = true;
-  nix.settings.substituters = [ "https://devenv.cachix.org" ];
-  nix.settings.trusted-public-keys = [ "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=" ];
+  nix.settings.substituters = ["https://devenv.cachix.org"];
+  nix.settings.trusted-public-keys = ["devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="];
 
   time.timeZone = "America/Toronto";
   time.hardwareClockInLocalTime = true;
@@ -54,7 +59,7 @@
   users.users.paul = {
     isNormalUser = true;
     description = "Paul Olteanu";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     shell = pkgs.fish;
   };
 

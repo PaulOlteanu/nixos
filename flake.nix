@@ -24,6 +24,7 @@
         #   };
         # }
         # nixos-cosmic.nixosModules.default
+
         ./configuration.nix
       ];
     };
