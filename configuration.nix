@@ -95,10 +95,9 @@
   # Needs to be enabled
   programs.dconf.enable = true;
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
